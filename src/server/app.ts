@@ -1,3 +1,26 @@
+import { fetchProductsFromSupabase } from '../lib/productsService';
+import { fetchAdminSettings } from '../lib/settingsService';
+import { createOrderServerSide } from '../lib/orderService';
+import { submitPaymentServerSide } from '../lib/paymentService';
+import { getTrackingOrderServerSide } from '../lib/trackingService';
+import { verifyAdminServerSide } from '../lib/adminAuthService';
+import { getAdminOrdersServerSide } from '../lib/adminOrderService';
+import { getAdminOrderDetailServerSide } from '../lib/adminOrderService';
+import { updateOrderStatusServerSide } from '../lib/adminOrderService';
+import { verifyPaymentServerSide } from '../lib/adminOrderService';
+import { getAdminProductsServerSide } from '../lib/adminCatalogService';
+import { createProductServerSide } from '../lib/adminCatalogService';
+import { updateProductServerSide } from '../lib/adminCatalogService';
+import { getAdminToppingsServerSide } from '../lib/adminCatalogService';
+import { createToppingServerSide } from '../lib/adminCatalogService';
+import { updateToppingServerSide } from '../lib/adminCatalogService';
+import { getProductToppingsServerSide } from '../lib/adminCatalogService';
+import { updateProductToppingsServerSide } from '../lib/adminCatalogService';
+import { getProductPricingServerSide } from '../lib/adminCatalogService';
+import { updateProductPricingServerSide } from '../lib/adminCatalogService';
+import { getAdminSettingsServerSide } from '../lib/adminSettingsService';
+import { updateAdminSettingsServerSide } from '../lib/adminSettingsService';
+
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -19,7 +42,7 @@ app.get('/api/health', (_req, res) => {
   // Products proxy endpoint
   app.get('/api/products', async (_req, res) => {
     try {
-      const { fetchProductsFromSupabase } = await import('../lib/productsService.js');
+      
       const result = await fetchProductsFromSupabase();
       res.json(result);
     } catch (error: any) {
@@ -34,7 +57,7 @@ app.get('/api/health', (_req, res) => {
   // Admin settings endpoint (delivery fee, shop status)
   app.get('/api/settings', async (_req, res) => {
     try {
-      const { fetchAdminSettings } = await import('../lib/settingsService.js');
+      
       const result = await fetchAdminSettings();
       res.json(result);
     } catch (error: any) {
@@ -49,7 +72,7 @@ app.get('/api/health', (_req, res) => {
   // Create order endpoint with server-side validation & pricing calculation
   app.post('/api/orders', async (req, res) => {
     try {
-      const { createOrderServerSide } = await import('../lib/orderService.js');
+      
       const result = await createOrderServerSide(req.body);
 
       if (!result.success) {
@@ -69,7 +92,7 @@ app.get('/api/health', (_req, res) => {
   // Payment submission endpoint (EasyPaisa transaction ID & proof screenshot)
   app.post('/api/payments/submit', async (req, res) => {
     try {
-      const { submitPaymentServerSide } = await import('../lib/paymentService.js');
+      
       const result = await submitPaymentServerSide(req.body);
 
       if (!result.success) {
@@ -90,7 +113,7 @@ app.get('/api/health', (_req, res) => {
   app.get('/api/orders/track/:trackingToken', async (req, res) => {
     try {
       const { trackingToken } = req.params;
-      const { getTrackingOrderServerSide } = await import('../lib/trackingService.js');
+      
       const result = await getTrackingOrderServerSide(trackingToken);
 
       if (!result.success) {
@@ -111,7 +134,7 @@ app.get('/api/health', (_req, res) => {
   app.get('/api/admin/verify', async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
-      const { verifyAdminServerSide } = await import('../lib/adminAuthService.js');
+      
       const result = await verifyAdminServerSide(authHeader);
 
       if (!result.success || !result.isAdmin) {
@@ -134,7 +157,7 @@ app.get('/api/health', (_req, res) => {
     try {
       const authHeader = req.headers.authorization;
       const { search, status, paymentStatus } = req.query;
-      const { getAdminOrdersServerSide } = await import('../lib/adminOrderService.js');
+      
 
       const result = await getAdminOrdersServerSide(authHeader, {
         search: typeof search === 'string' ? search : undefined,
@@ -161,7 +184,7 @@ app.get('/api/health', (_req, res) => {
     try {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
-      const { getAdminOrderDetailServerSide } = await import('../lib/adminOrderService.js');
+      
 
       const result = await getAdminOrderDetailServerSide(authHeader, id);
 
@@ -185,7 +208,7 @@ app.get('/api/health', (_req, res) => {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
       const { status } = req.body;
-      const { updateOrderStatusServerSide } = await import('../lib/adminOrderService.js');
+      
 
       const result = await updateOrderStatusServerSide(authHeader, id, status);
 
@@ -209,7 +232,7 @@ app.get('/api/health', (_req, res) => {
       const authHeader = req.headers.authorization;
       const { orderId } = req.params;
       const { action, rejectionReason } = req.body;
-      const { verifyPaymentServerSide } = await import('../lib/adminOrderService.js');
+      
 
       const result = await verifyPaymentServerSide(authHeader, orderId, action, rejectionReason);
 
@@ -231,7 +254,7 @@ app.get('/api/health', (_req, res) => {
   app.get('/api/admin/catalog/products', async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
-      const { getAdminProductsServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await getAdminProductsServerSide(authHeader);
 
       if (!result.success) {
@@ -248,7 +271,7 @@ app.get('/api/health', (_req, res) => {
   app.post('/api/admin/catalog/products', async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
-      const { createProductServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await createProductServerSide(authHeader, req.body);
 
       if (!result.success) {
@@ -266,7 +289,7 @@ app.get('/api/health', (_req, res) => {
     try {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
-      const { updateProductServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await updateProductServerSide(authHeader, id, req.body);
 
       if (!result.success) {
@@ -283,7 +306,7 @@ app.get('/api/health', (_req, res) => {
   app.get('/api/admin/catalog/toppings', async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
-      const { getAdminToppingsServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await getAdminToppingsServerSide(authHeader);
 
       if (!result.success) {
@@ -300,7 +323,7 @@ app.get('/api/health', (_req, res) => {
   app.post('/api/admin/catalog/toppings', async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
-      const { createToppingServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await createToppingServerSide(authHeader, req.body);
 
       if (!result.success) {
@@ -318,7 +341,7 @@ app.get('/api/health', (_req, res) => {
     try {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
-      const { updateToppingServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await updateToppingServerSide(authHeader, id, req.body);
 
       if (!result.success) {
@@ -336,7 +359,7 @@ app.get('/api/health', (_req, res) => {
     try {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
-      const { getProductToppingsServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await getProductToppingsServerSide(authHeader, id);
 
       if (!result.success) {
@@ -355,7 +378,7 @@ app.get('/api/health', (_req, res) => {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
       const { toppingIds } = req.body;
-      const { updateProductToppingsServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await updateProductToppingsServerSide(authHeader, id, toppingIds);
 
       if (!result.success) {
@@ -373,7 +396,7 @@ app.get('/api/health', (_req, res) => {
     try {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
-      const { getProductPricingServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await getProductPricingServerSide(authHeader, id);
 
       if (!result.success) {
@@ -392,7 +415,7 @@ app.get('/api/health', (_req, res) => {
       const authHeader = req.headers.authorization;
       const { id } = req.params;
       const { rules } = req.body;
-      const { updateProductPricingServerSide } = await import('../lib/adminCatalogService.js');
+      
       const result = await updateProductPricingServerSide(authHeader, id, rules);
 
       if (!result.success) {
@@ -409,7 +432,7 @@ app.get('/api/health', (_req, res) => {
   app.get('/api/admin/settings', async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
-      const { getAdminSettingsServerSide } = await import('../lib/adminSettingsService.js');
+      
       const result = await getAdminSettingsServerSide(authHeader);
 
       if (!result.success) {
@@ -426,7 +449,7 @@ app.get('/api/health', (_req, res) => {
   app.put('/api/admin/settings', async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
-      const { updateAdminSettingsServerSide } = await import('../lib/adminSettingsService.js');
+      
       const result = await updateAdminSettingsServerSide(authHeader, req.body);
 
       if (!result.success) {
