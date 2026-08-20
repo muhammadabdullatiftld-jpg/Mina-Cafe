@@ -1,4 +1,4 @@
-import { getSupabaseServerClient } from './supabaseServer';
+import { getSupabaseServerClient } from './supabaseServer.js';
 
 export interface SubmitPaymentInput {
   trackingToken: string;

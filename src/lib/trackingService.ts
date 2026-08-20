@@ -1,5 +1,5 @@
-import { getSupabaseServerClient } from './supabaseServer';
-import { fetchAdminSettings } from './settingsService';
+import { getSupabaseServerClient } from './supabaseServer.js';
+import { fetchAdminSettings } from './settingsService.js';
 
 export interface TrackingOrderResult {
   success: boolean;

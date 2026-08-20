@@ -1,5 +1,5 @@
-import { supabase, isSupabaseConfigured } from './supabase';
-import { AdminSettings } from '../types';
+import { supabase, isSupabaseConfigured } from './supabase.js';
+import { AdminSettings } from '../types.js';
 
 export interface SettingsFetchResult {
   settings: AdminSettings | null;

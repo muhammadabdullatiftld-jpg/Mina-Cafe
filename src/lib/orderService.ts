@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { isSupabaseConfigured } from './supabase';
-import { getSupabaseServerClient } from './supabaseServer';
-import { OrderCreateResponse } from '../types';
+import { isSupabaseConfigured } from './supabase.js';
+import { getSupabaseServerClient } from './supabaseServer.js';
+import { OrderCreateResponse } from '../types.js';
 import crypto from 'crypto';
 
 // Zod Checkout Schema

@@ -1,5 +1,5 @@
-import { supabase, isSupabaseConfigured } from './supabase';
-import { Product, ProductWithToppings, Topping, ToppingPricing } from '../types';
+import { supabase, isSupabaseConfigured } from './supabase.js';
+import { Product, ProductWithToppings, Topping, ToppingPricing } from '../types.js';
 
 export interface ProductsFetchResult {
   products: Product[];

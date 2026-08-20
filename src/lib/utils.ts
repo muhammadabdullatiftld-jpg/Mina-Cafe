@@ -1,4 +1,4 @@
-import { ToppingPricing, ToppingPriceResult } from '../types';
+import { ToppingPricing, ToppingPriceResult } from '../types.js';
 
 /**
  * Format currency amount to Pakistani Rupees (e.g., Rs. 200)
