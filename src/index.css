@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-cafe-cream: #FAF6EE;
+  --color-cafe-card: #FFFDF9;
+  --color-cafe-dark: #2A201C;
+  --color-cafe-muted: #6B5B52;
+  --color-mango: #E86024;
+  --color-mango-hover: #D05018;
+  --color-berry: #C8324A;
+  --color-berry-light: #FFF0F2;
+}
+
+@layer base {
+  body {
+    font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAF6EE;
+    color: #2A201C;
+  }
+  h1, h2, h3, h4, h5, h6, .font-fraunces {
+    font-family: "Fraunces", Georgia, serif;
+  }
+}
